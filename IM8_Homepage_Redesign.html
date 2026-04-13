@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1440">
+<title>IM8 Health — Homepage Redesign (Typography & Color Audit)</title>
+<style>
+  /* ============================================
+     DESIGN SYSTEM — 7 Font Sizes, 6 Colors
+     Reduced from 33 sizes / 25+ colors
+     ============================================ */
+  :root {
+    /* 6 COLORS ONLY */
+    --deep-maroon: #5A000B;
+    --white: #FFFFFF;
+    --brand-gold: #C5973B;
+    --warm-gray: #8C7A6E;
+    --near-black: #1A0508;
+    --light-bg: #FDF5F0;
+
+    /* Derived — opacity variants of the 6 core colors ONLY */
+    --dark-bg: rgba(26,5,8,0.85);       /* near-black at 85% */
+    --card-bg: rgba(255,255,255,0.08);   /* white at 8% */
+    --card-border: rgba(255,255,255,0.12); /* white at 12% */
+
+    /* 7 FONT SIZES ONLY */
+    --fs-display: 56px;
+    --fs-h1: 40px;
+    --fs-h2: 28px;
+    --fs-h3: 20px;
+    --fs-body: 16px;
+    --fs-small: 14px;
+    --fs-micro: 11px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--near-black);
+    background: var(--light-bg);
+    width: 1440px;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+
+  /* ============================================
+     DESIGN SYSTEM REFERENCE CARD
+     ============================================ */
+  .design-system-ref {
+    background: var(--white);
+    border: 2px dashed var(--brand-gold);
+    padding: 40px 80px;
+    margin-bottom: 0;
+  }
+  .design-system-ref h2 { font-size: var(--fs-h2); color: var(--near-black); margin-bottom: 24px; }
+  .ds-row { display: flex; gap: 40px; margin-bottom: 32px; }
+  .ds-sizes { flex: 1; }
+  .ds-colors { flex: 1; }
+  .ds-size-item { margin-bottom: 8px; display: flex; align-items: baseline; gap: 12px; }
+  .ds-size-item .label { font-size: var(--fs-micro); color: var(--warm-gray); width: 120px; }
+  .ds-color-swatches { display: flex; gap: 16px; flex-wrap: wrap; }
+  .ds-swatch { width: 80px; text-align: center; }
+  .ds-swatch-box { width: 80px; height: 50px; border-radius: 8px; border: 1px solid var(--warm-gray); margin-bottom: 4px; }
+  .ds-swatch-name { font-size: var(--fs-micro); color: var(--warm-gray); }
+
+  /* ============================================
+     SECTION 01 — ANNOUNCEMENT BAR
+     ============================================ */
+  .announcement-bar {
+    background: var(--deep-maroon);
+    padding: 10px 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+  }
+  .announcement-bar span {
+    font-size: var(--fs-micro);
+    color: var(--brand-gold);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+  }
+  .announcement-bar .divider { color: var(--warm-gray); }
+  .announcement-bar .secondary { color: var(--white); opacity: 0.7; }
+
+  /* ============================================
+     SECTION 02 — NAVIGATION
+     ============================================ */
+  .nav-bar {
+    background: var(--white);
+    padding: 0 60px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .nav-left, .nav-right { display: flex; align-items: center; gap: 28px; }
+  .nav-left a, .nav-right a {
+    font-size: var(--fs-small);
+    color: var(--near-black);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .nav-logo {
+    font-size: var(--fs-h2);
+    font-weight: 700;
+    color: var(--deep-maroon);
+    letter-spacing: 4px;
+  }
+  .nav-logo .dot { color: var(--deep-maroon); font-size: var(--fs-small); margin: 0 2px; }
+
+  /* ============================================
+     SECTION 03 — HERO
+     ============================================ */
+  .hero {
+    background: url('https://im8health.com/cdn/shop/files/giannis_FINAL2_desktop2_rev-wide.jpg') center/cover no-repeat;
+    min-height: 820px;
+    position: relative;
+    display: flex;
+    overflow: hidden;
+  }
+  .hero-content {
+    padding: 80px 80px 60px;
+    flex: 0 0 55%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(90deg, rgba(90,0,11,0.85) 0%, rgba(90,0,11,0.6) 70%, transparent 100%);
+  }
+  .hero-subcopy {
+    font-size: var(--fs-body);
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 16px;
+    line-height: 1.6;
+    max-width: 500px;
+  }
+  .hero h1 {
+    font-size: var(--fs-display);
+    color: var(--white);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .hero h1 em { font-style: italic; color: var(--brand-gold); }
+  .hero .sub-headline {
+    font-size: var(--fs-body);
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+    max-width: 480px;
+    margin-bottom: 8px;
+  }
+  .hero-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 16px 0 24px;
+  }
+  .hero-rating .stars { color: var(--brand-gold); font-size: var(--fs-body); }
+  .hero-rating .count { font-size: var(--fs-small); color: rgba(255,255,255,0.7); }
+  .hero-ctas { display: flex; gap: 16px; margin-bottom: 20px; }
+  .btn-primary {
+    background: var(--brand-gold);
+    color: var(--near-black);
+    font-size: var(--fs-small);
+    font-weight: 700;
+    padding: 16px 32px;
+    border-radius: 40px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    font-size: var(--fs-small);
+    font-weight: 600;
+    padding: 16px 32px;
+    border-radius: 40px;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .trust-badges { display: flex; gap: 12px; margin-bottom: 0; }
+  .trust-badge {
+    font-size: var(--fs-micro);
+    color: var(--white);
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .trust-badge .check { color: var(--brand-gold); }
+  .hero-image {
+    flex: 0 0 45%;
+    position: relative;
+  }
+  .hero-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fs-body);
+    color: transparent;
+  }
+  .hero-stats {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .hero-stat-card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 20px 24px;
+    min-width: 200px;
+  }
+  .hero-stat-card .number { font-size: var(--fs-h1); color: var(--brand-gold); font-weight: 700; }
+  .hero-stat-card .desc { font-size: var(--fs-small); color: rgba(255,255,255,0.8); margin-top: 4px; }
+  .hero-stat-card .source { font-size: var(--fs-micro); color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+  /* ============================================
+     SECTION 04 — SOCIAL PROOF TICKER
+     ============================================ */
+  .ticker {
+    background: var(--dark-bg);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-content {
+    font-size: var(--fs-micro);
+    color: var(--warm-gray);
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+  .ticker-content .sep { margin: 0 16px; opacity: 0.4; }
+
+  /* ============================================
+     SECTION 05 — STICKY PROMO BAR
+     ============================================ */
+  .sticky-bar {
+    background: var(--deep-maroon);
+    padding: 12px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .sticky-bar .logo { font-size: var(--fs-h3); color: var(--white); font-weight: 700; letter-spacing: 3px; }
+  .sticky-bar .promo { font-size: var(--fs-micro); color: var(--brand-gold); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+  .sticky-bar .shipping { font-size: var(--fs-micro); color: rgba(255,255,255,0.6); }
+  .sticky-bar .cta {
+    background: var(--brand-gold);
+    color: var(--near-black);
+    font-size: var(--fs-small);
+    font-weight: 700;
+    padding: 10px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  /* ============================================
+     SECTION 06 — SAVE 30% HEADING + BECKHAM STACK
+     ============================================ */
+  .promo-heading {
+    text-align: center;
+    padding: 80px 0 10px;
+    background: var(--light-bg);
+  }
+  .promo-heading h2 {
+    font-size: var(--fs-display);
+    color: var(--deep-maroon);
+    font-weight: 400;
+    letter-spacing: -1px;
+  }
+
+  .beckham-stack {
+    background: var(--light-bg);
+    padding: 20px 120px 56px;
+  }
+  .beckham-stack .urgency-bar { margin-bottom: 16px; }
+
+  .beckham-card {
+    background: rgba(255,255,255,0.88);
+    border-radius: 24px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ---- Left column ---- */
+  .beckham-left {
+    flex: 1;
+    padding: 40px 0 40px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+  .beckham-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, var(--brand-gold), rgba(196,154,58,1));
+    color: var(--white);
+    font-size: var(--fs-micro);
+    font-weight: 700;
+    padding: 8px 15px 7px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 22px;
+    align-self: flex-start;
+  }
+  .beckham-left h3 {
+    font-size: var(--fs-h2);
+    color: var(--near-black);
+    margin-bottom: 8px;
+    font-weight: 500;
+    letter-spacing: -0.6px;
+    line-height: 1.15;
+  }
+  .beckham-left .desc {
+    font-size: var(--fs-body);
+    color: rgba(26,5,8,0.62);
+    line-height: 1.55;
+    margin-bottom: 22px;
+    max-width: 426px;
+  }
+  .beckham-price { margin-bottom: 6px; }
+  .beckham-price .amount {
+    font-size: var(--fs-h1);
+    font-weight: 500;
+    color: var(--near-black);
+    letter-spacing: -0.5px;
+  }
+  .beckham-price .period {
+    font-size: var(--fs-h3);
+    font-weight: 500;
+    color: rgba(26,5,8,0.5);
+  }
+  .beckham-discount {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .discount-badge {
+    font-size: var(--fs-micro);
+    color: var(--deep-maroon);
+    background: rgba(90,0,11,0.08);
+    border: 1px solid rgba(90,0,11,0.18);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .discount-note { font-size: var(--fs-small); color: rgba(26,5,8,0.62); }
+  .btn-atc {
+    display: block;
+    background: linear-gradient(135deg, rgba(90,0,11,0.95), var(--deep-maroon), rgba(90,0,11,0.85));
+    color: var(--white);
+    font-size: var(--fs-small);
+    font-weight: 700;
+    padding: 17px;
+    border-radius: 100px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1.1px;
+    margin-bottom: 8px;
+    border: none;
+    cursor: pointer;
+  }
+  .free-shipping {
+    font-size: var(--fs-micro);
+    color: rgba(26,5,8,0.42);
+    text-align: center;
+  }
+  .guarantee-divider {
+    display: flex;
+    justify-content: center;
+    padding: 16px 0 0;
+  }
+  .guarantee-divider .gold-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--brand-gold);
+  }
+  .guarantee-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding-top: 12px;
+  }
+  .guarantee-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(197,151,59,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-gold);
+    font-size: var(--fs-small);
+    flex-shrink: 0;
+  }
+  .guarantee-line .text {
+    font-size: var(--fs-h2);
+    font-weight: 500;
+    color: var(--near-black);
+  }
+  .guarantee-line .note {
+    font-size: var(--fs-micro);
+    color: rgba(26,5,8,0.42);
+    margin-top: 2px;
+  }
+
+  /* ---- Right column ---- */
+  .beckham-right {
+    width: 446px;
+    flex-shrink: 0;
+    padding: 40px 36px 40px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .beckham-image-area {
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .beckham-image-area img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .why-stack {
+    background: linear-gradient(160deg, var(--near-black) 0%, rgba(42,0,6,1) 45%, rgba(61,0,10,1) 100%);
+    border-radius: 16px;
+    padding: 22px 22px 20px;
+  }
+  .why-stack .label {
+    font-size: var(--fs-micro);
+    color: rgba(197,151,59,0.72);
+    text-transform: uppercase;
+    letter-spacing: 1.7px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .why-stack ul { padding: 0; margin: 0; }
+  .why-stack li {
+    font-size: var(--fs-small);
+    color: rgba(255,255,255,0.85);
+    list-style: none;
+    padding: 6px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .why-stack li .check { color: var(--brand-gold); flex-shrink: 0; }
+
+  /* ============================================
+     SECTION 07 — TWO PRODUCT CARDS
+     ============================================ */
+  .products-section {
+    background: var(--light-bg);
+    padding: 0 120px 60px;
+    display: flex;
+    gap: 32px;
+  }
+  .product-card {
+    flex: 1;
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+  }
+  .product-image {
+    height: 340px;
+    background: var(--light-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fs-body);
+    color: var(--warm-gray);
+  }
+  .product-info { padding: 24px 28px 28px; }
+  .product-info h3 { font-size: var(--fs-h3); color: var(--near-black); margin-bottom: 12px; line-height: 1.3; }
+  .product-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .product-tag {
+    font-size: var(--fs-micro);
+    color: var(--near-black);
+    background: var(--light-bg);
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .product-tag .check { color: var(--brand-gold); font-size: var(--fs-micro); }
+  .product-price { margin-bottom: 16px; }
+  .product-price .from { font-size: var(--fs-small); color: var(--warm-gray); }
+  .product-price .amount { font-size: var(--fs-h2); font-weight: 700; color: var(--near-black); }
+  .product-price .period { font-size: var(--fs-body); color: var(--warm-gray); }
+  .product-card .btn-atc { border-radius: 8px; }
+  .product-guarantee { font-size: var(--fs-micro); color: var(--warm-gray); text-align: center; margin-top: 8px; }
+  .product-guarantee a { color: var(--brand-gold); text-decoration: underline; }
+
+  /* ============================================
+     SECTION 08 — AMBASSADORS
+     ============================================ */
+  .ambassadors {
+    background: var(--dark-bg);
+    padding: 60px 80px;
+    text-align: center;
+  }
+  .ambassadors .overline { font-size: var(--fs-micro); color: var(--brand-gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+  .ambassadors h2 { font-size: var(--fs-h1); color: var(--white); margin-bottom: 8px; }
+  .ambassadors h2 em { font-style: italic; color: var(--brand-gold); }
+  .ambassador-grid { display: flex; gap: 24px; margin-top: 40px; }
+  .ambassador-card {
+    flex: 1;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+  }
+  .ambassador-img {
+    height: 420px;
+    background-size: cover;
+    background-position: center top;
+    display: flex;
+    align-items: flex-end;
+    padding: 24px;
+  }
+  .ambassador-img .info { text-align: left; }
+  .ambassador-img .name { font-size: var(--fs-h3); color: var(--white); font-weight: 700; }
+  .ambassador-img .role { font-size: var(--fs-small); color: rgba(255,255,255,0.7); margin-top: 2px; }
+  .ambassador-img .tagline {
+    font-size: var(--fs-micro);
+    color: rgba(255,255,255,0.6);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+  }
+
+  /* ============================================
+     SECTION 09 — STATS BAR
+     ============================================ */
+  .stats-bar {
+    background: var(--dark-bg);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 32px 0;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+  }
+  .stat-item { display: flex; align-items: baseline; gap: 8px; }
+  .stat-item .number { font-size: var(--fs-h2); color: var(--brand-gold); font-weight: 700; }
+  .stat-item .label { font-size: var(--fs-small); color: var(--warm-gray); }
+
+  /* ============================================
+     SECTION 10 — REVIEWS
+     ============================================ */
+  .reviews-section {
+    background: var(--light-bg);
+    padding: 60px 80px;
+  }
+  .reviews-header { text-align: center; margin-bottom: 40px; }
+  .reviews-header .overline { font-size: var(--fs-micro); color: var(--warm-gray); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+  .reviews-header h2 { font-size: var(--fs-h1); color: var(--near-black); margin-bottom: 4px; }
+  .reviews-header h2 em { font-style: italic; color: var(--brand-gold); }
+  .reviews-header .trustpilot { font-size: var(--fs-small); color: var(--warm-gray); margin-top: 8px; }
+  .reviews-header .trustpilot strong { color: var(--brand-gold); }
+  .reviews-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .review-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+  .review-stars { color: var(--brand-gold); font-size: var(--fs-body); margin-bottom: 8px; }
+  .review-title { font-size: var(--fs-small); font-weight: 700; color: var(--near-black); text-transform: uppercase; margin-bottom: 8px; display: inline-block; background: var(--light-bg); padding: 4px 8px; border-radius: 4px; }
+  .review-text { font-size: var(--fs-small); color: var(--warm-gray); line-height: 1.6; flex: 1; margin-bottom: 12px; }
+  .review-author { font-size: var(--fs-small); font-weight: 600; color: var(--near-black); }
+  .review-verified { font-size: var(--fs-micro); color: var(--brand-gold); }
+  .show-more-btn {
+    display: block;
+    margin: 32px auto 0;
+    background: transparent;
+    border: 1.5px solid var(--warm-gray);
+    color: var(--warm-gray);
+    font-size: var(--fs-small);
+    font-weight: 600;
+    padding: 12px 32px;
+    border-radius: 30px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ============================================
+     SECTION 11 — INGREDIENT COMPARISON (Original vs Pro)
+     Redesigned to match live site layout
+     ============================================ */
+  .ingredient-comparison {
+    background: linear-gradient(180deg, var(--deep-maroon) 0%, rgba(90,0,11,0.95) 100%);
+    padding: 80px 120px;
+    text-align: center;
+  }
+  .ingredient-comparison .section-heading {
+    font-size: var(--fs-h1);
+    color: var(--white);
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .ingredient-comparison .section-sub {
+    font-size: var(--fs-body);
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 40px;
+  }
+  .comparison-table {
+    background: var(--light-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100%;
+    text-align: left;
+  }
+  .comparison-header {
+    display: grid;
+    grid-template-columns: 40% 20% 20% 20%;
+    padding: 24px 32px 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .comparison-header span {
+    font-size: var(--fs-micro);
+    color: var(--warm-gray);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+  }
+  .comparison-header span.pro { color: var(--deep-maroon); }
+  .comparison-row {
+    display: grid;
+    grid-template-columns: 40% 20% 20% 20%;
+    padding: 20px 32px;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+  }
+  .comparison-row:last-child { border-bottom: none; }
+  .ingredient-cell {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .ingredient-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fs-body);
+    flex-shrink: 0;
+  }
+  .ingredient-icon.energy { background: rgba(197,151,59,0.15); color: var(--brand-gold); }
+  .ingredient-icon.renewal { background: rgba(90,0,11,0.08); color: var(--deep-maroon); }
+  .ingredient-icon.heart { background: rgba(90,0,11,0.08); color: var(--deep-maroon); }
+  .ingredient-icon.sun { background: rgba(197,151,59,0.12); color: var(--brand-gold); }
+  .ingredient-icon.brain { background: rgba(140,122,110,0.12); color: var(--warm-gray); }
+  .ingredient-icon.relax { background: rgba(90,0,11,0.06); color: var(--deep-maroon); }
+  .ingredient-icon.joint { background: rgba(90,0,11,0.08); color: var(--deep-maroon); }
+  .ingredient-icon.muscle { background: rgba(90,0,11,0.08); color: var(--deep-maroon); }
+  .ingredient-icon.mood { background: rgba(197,151,59,0.1); color: var(--brand-gold); }
+  .ingredient-icon.bio { background: rgba(140,122,110,0.1); color: var(--warm-gray); }
+  .ingredient-name-text {
+    font-size: var(--fs-small);
+    font-style: italic;
+    color: var(--near-black);
+    font-weight: 500;
+  }
+  .ingredient-sub-text {
+    font-size: var(--fs-micro);
+    color: var(--warm-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+  .original-val {
+    font-size: var(--fs-small);
+    color: var(--warm-gray);
+    text-align: center;
+  }
+  .pro-val {
+    text-align: center;
+  }
+  .pro-val .dosage {
+    font-size: var(--fs-h3);
+    color: var(--deep-maroon);
+    font-weight: 700;
+    display: block;
+  }
+  .upgrade-badge {
+    font-size: var(--fs-micro);
+    background: var(--deep-maroon);
+    color: var(--white);
+    padding: 3px 10px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-top: 4px;
+    font-weight: 600;
+  }
+  .upgrade-badge.new { background: var(--brand-gold); }
+  .benefit-val {
+    font-size: var(--fs-small);
+    color: var(--warm-gray);
+  }
+
+  /* ============================================
+     SECTION 12 — BODY SUPPORT (9 ORGAN SYSTEMS)
+     ============================================ */
+  .body-support {
+    background: var(--light-bg);
+    padding: 60px 80px;
+    text-align: center;
+  }
+  .body-support .pill-label {
+    display: inline-block;
+    font-size: var(--fs-micro);
+    color: var(--near-black);
+    border: 1px solid var(--warm-gray);
+    padding: 8px 20px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .body-support h2 { font-size: var(--fs-h1); color: var(--near-black); margin-bottom: 8px; }
+  .body-support h2 em { font-style: italic; color: var(--brand-gold); }
+  .body-support .sub { font-size: var(--fs-body); color: var(--warm-gray); max-width: 600px; margin: 0 auto 32px; line-height: 1.6; }
+  .organ-tabs { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+  .organ-tab {
+    font-size: var(--fs-small);
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: var(--white);
+    color: var(--near-black);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .organ-tab.active { background: var(--deep-maroon); color: var(--white); border-color: var(--deep-maroon); }
+  .organ-detail {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px 32px;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .organ-detail h4 { font-size: var(--fs-h3); color: var(--near-black); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .organ-detail p { font-size: var(--fs-small); color: var(--warm-gray); line-height: 1.6; }
+  .organ-footnote { font-size: var(--fs-small); color: var(--warm-gray); margin-top: 20px; }
+  .organ-footnote strong { color: var(--deep-maroon); }
+
+  /* ============================================
+     SECTION 13 — CLINICAL PROOF (NSF + Stats)
+     ============================================ */
+  .clinical-proof {
+    background: linear-gradient(135deg, var(--deep-maroon), var(--deep-maroon));
+    padding: 60px 80px;
+    text-align: center;
+  }
+  .clinical-proof h2 { font-size: var(--fs-h1); color: var(--white); margin-bottom: 12px; }
+  .clinical-proof .sub { font-size: var(--fs-body); color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto 20px; line-height: 1.6; }
+  .nsf-trust-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 24px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 14px 32px;
+    border-radius: 40px;
+    margin-bottom: 16px;
+  }
+  .nsf-trust-bar .nsf-label { font-size: var(--fs-small); color: var(--white); font-weight: 700; }
+  .nsf-trust-bar .nsf-sub { font-size: var(--fs-micro); color: var(--brand-gold); }
+  .nsf-trust-bar .trusted { font-size: var(--fs-small); color: rgba(255,255,255,0.7); }
+  .nsf-trust-bar .name { font-size: var(--fs-small); color: var(--white); font-weight: 700; }
+  .btn-outline-light {
+    display: inline-block;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    color: var(--white);
+    font-size: var(--fs-small);
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+  }
+  .clinical-stats { display: flex; gap: 24px; justify-content: center; }
+  .clinical-stat-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 32px;
+    flex: 1;
+    max-width: 280px;
+  }
+  .clinical-stat-card h3 { font-size: var(--fs-h3); color: rgba(255,255,255,0.8); font-style: italic; margin-bottom: 8px; }
+  .clinical-stat-card .number { font-size: var(--fs-display); color: var(--brand-gold); font-weight: 700; }
+  .clinical-stat-card .desc { font-size: var(--fs-small); color: rgba(255,255,255,0.6); margin-top: 8px; line-height: 1.5; }
+  .clinical-footnote { font-size: var(--fs-micro); color: rgba(255,255,255,0.4); margin-top: 24px; }
+  .clinical-footnote a { color: rgba(255,255,255,0.5); }
+
+  /* ============================================
+     SECTION 14 — NSF DETAIL BADGES
+     ============================================ */
+  .nsf-badges-section {
+    background: linear-gradient(135deg, var(--deep-maroon), var(--deep-maroon));
+    padding: 40px 80px;
+    text-align: center;
+  }
+  .nsf-badges { display: flex; justify-content: center; gap: 20px; }
+  .nsf-badge-item {
+    font-size: var(--fs-micro);
+    color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .nsf-badge-item .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand-gold); }
+
+  /* ============================================
+     SECTION 15 — SCIENTIFIC ADVISORY BOARD
+     ============================================ */
+  .advisory-board {
+    background: var(--light-bg);
+    padding: 60px 80px;
+    text-align: center;
+  }
+  .advisory-board .pill-label {
+    display: inline-block;
+    font-size: var(--fs-micro);
+    color: var(--near-black);
+    border: 1px solid var(--warm-gray);
+    padding: 8px 20px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .advisory-board h2 { font-size: var(--fs-h1); color: var(--near-black); margin-bottom: 8px; }
+  .advisory-board h2 em { font-style: italic; color: var(--brand-gold); }
+  .advisory-board .sub { font-size: var(--fs-body); color: var(--warm-gray); max-width: 650px; margin: 0 auto 40px; line-height: 1.6; }
+  .advisor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .advisor-card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    text-align: left;
+  }
+  .advisor-photo {
+    height: 300px;
+    background: linear-gradient(180deg, rgba(140,122,110,0.15), var(--light-bg));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fs-small);
+    color: var(--warm-gray);
+  }
+  .advisor-info { padding: 20px 24px; }
+  .advisor-info h4 { font-size: var(--fs-h3); color: var(--near-black); font-weight: 700; margin-bottom: 4px; }
+  .advisor-info .role { font-size: var(--fs-small); color: var(--warm-gray); line-height: 1.4; margin-bottom: 12px; }
+  .advisor-info .view-bio { font-size: var(--fs-micro); color: var(--deep-maroon); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; text-decoration: none; }
+
+  /* ============================================
+     SECTION 16 — ADVISOR QUOTE BLOCK
+     ============================================ */
+  .advisor-quote {
+    background: var(--dark-bg);
+    padding: 60px 160px;
+    text-align: center;
+  }
+  .advisor-quote .quote-mark { font-size: var(--fs-display); color: var(--warm-gray); opacity: 0.3; line-height: 1; margin-bottom: 16px; }
+  .advisor-quote blockquote { font-size: var(--fs-h3); color: rgba(255,255,255,0.8); font-style: italic; line-height: 1.6; }
+
+  /* ============================================
+     SECTION 17 — A NOTE FROM DAVID BECKHAM
+     ============================================ */
+  .beckham-note {
+    background: linear-gradient(135deg, var(--deep-maroon), var(--deep-maroon));
+    padding: 80px;
+    display: flex;
+    gap: 60px;
+  }
+  .beckham-note-content { flex: 1; }
+  .beckham-note-content h2 { font-size: var(--fs-h1); color: var(--white); text-transform: uppercase; margin-bottom: 24px; line-height: 1.2; }
+  .beckham-note-content p { font-size: var(--fs-small); color: rgba(255,255,255,0.75); line-height: 1.8; margin-bottom: 16px; }
+  .beckham-note-content .signature { font-size: var(--fs-h3); color: var(--white); font-weight: 700; margin-top: 24px; }
+  .beckham-note-content .sig-role { font-size: var(--fs-small); color: var(--warm-gray); }
+  .beckham-note-image {
+    flex: 0 0 400px;
+    background: linear-gradient(180deg, rgba(107,21,32,0.3), rgba(90,0,11,0.5));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fs-body);
+    color: rgba(255,255,255,0.4);
+    min-height: 500px;
+  }
+
+  /* ============================================
+     SECTION 18 — CLINICAL COMPARISON (vs Greens)
+     Redesigned to match live site layout
+     ============================================ */
+  .vs-comparison {
+    background: var(--light-bg);
+    padding: 80px 120px;
+    text-align: center;
+  }
+  .vs-comparison .pill-label {
+    display: inline-block;
+    font-size: var(--fs-micro);
+    color: var(--near-black);
+    border: 1px solid var(--warm-gray);
+    padding: 8px 20px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .vs-comparison h2 { font-size: var(--fs-h1); color: var(--near-black); margin-bottom: 8px; font-weight: 400; }
+  .vs-comparison h2 em { font-style: italic; color: var(--brand-gold); }
+  .vs-comparison .sub { font-size: var(--fs-body); color: var(--warm-gray); margin-bottom: 40px; }
+  .vs-table { background: var(--light-bg); border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,0,0,0.04); }
+  .vs-table-header {
+    display: grid;
+    grid-template-columns: 40% 30% 30%;
+    padding: 24px 32px;
+    align-items: end;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .vs-product { text-align: center; }
+  .vs-product img { display: block; margin: 0 auto 8px; }
+  .vs-product .name { font-size: var(--fs-micro); font-weight: 700; color: var(--near-black); text-transform: uppercase; letter-spacing: 1.5px; }
+  .vs-label { font-size: var(--fs-micro); color: var(--warm-gray); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; text-align: left; }
+  .vs-row {
+    display: grid;
+    grid-template-columns: 40% 30% 30%;
+    padding: 20px 32px;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+  .vs-row:last-child { border-bottom: none; }
+  .vs-ingredient { font-size: var(--fs-small); color: var(--near-black); font-weight: 500; text-align: left; }
+  .vs-im8-cell { display: flex; align-items: center; gap: 10px; justify-content: center; }
+  .vs-check-im8 {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(90,0,11,0.12);
+    color: var(--deep-maroon);
+    display: flex; align-items: center; justify-content: center;
+    font-size: var(--fs-micro); font-weight: 700; flex-shrink: 0;
+  }
+  .vs-im8-data .pct { font-size: var(--fs-small); color: var(--deep-maroon); font-weight: 700; }
+  .vs-im8-data .pct-label { font-size: var(--fs-micro); color: var(--warm-gray); text-transform: uppercase; letter-spacing: 0.5px; margin-left: 4px; }
+  .vs-im8-data .dose { font-size: var(--fs-small); color: var(--near-black); display: block; }
+  .vs-competitor-cell { display: flex; align-items: center; gap: 10px; justify-content: center; }
+  .vs-check-comp {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(140,122,110,0.12);
+    color: var(--warm-gray);
+    display: flex; align-items: center; justify-content: center;
+    font-size: var(--fs-micro); font-weight: 700; flex-shrink: 0;
+  }
+  .vs-comp-dose { font-size: var(--fs-small); color: var(--warm-gray); }
+  .vs-footnote { font-size: var(--fs-small); color: var(--warm-gray); margin-top: 32px; }
+  .vs-footnote strong { color: var(--deep-maroon); }
+
+  /* ============================================
+     SECTION 19 — TRUSTED BY THE BEST
+     ============================================ */
+  .trusted-section {
+    background: var(--dark-bg);
+    padding: 60px 80px;
+    text-align: center;
+  }
+  .trusted-section .pill-label {
+    display: inline-block;
+    font-size: var(--fs-micro);
+    color: var(--brand-gold);
+    border: 1px solid rgba(197,151,59,0.3);
+    padding: 8px 20px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .trusted-section h2 { font-size: var(--fs-h1); color: var(--white); margin-bottom: 8px; line-height: 1.3; }
+  .trusted-section h2 em { font-style: italic; color: var(--brand-gold); }
+  .trusted-section .sub { font-size: var(--fs-body); color: var(--warm-gray); margin-bottom: 40px; }
+  .influencer-grid { display: flex; gap: 20px; justify-content: center; margin-bottom: 40px; }
+  .influencer-card {
+    width: 280px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  .influencer-img {
+    height: 240px;
+    background: linear-gradient(180deg, rgba(107,21,32,0.2), rgba(90,0,11,0.7));
+    display: flex;
+    align-items: flex-end;
+    padding: 16px;
+  }
+  .influencer-img .name { font-size: var(--fs-body); color: var(--white); font-weight: 700; }
+  .influencer-img .role { font-size: var(--fs-micro); color: rgba(255,255,255,0.6); }
+  .trusted-stats {
+    display: inline-flex;
+    gap: 48px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 24px 48px;
+  }
+  .trusted-stat .number { font-size: var(--fs-h2); color: var(--brand-gold); font-weight: 700; }
+  .trusted-stat .label { font-size: var(--fs-micro); color: var(--warm-gray); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ============================================
+     SECTION 20 — RISK-FREE GUARANTEE
+     ============================================ */
+  .guarantee-section {
+    background: var(--dark-bg);
+    padding: 60px 80px;
+    text-align: center;
+  }
+  .guarantee-icon-big { font-size: var(--fs-h1); color: var(--brand-gold); margin-bottom: 12px; }
+  .guarantee-section .overline { font-size: var(--fs-micro); color: var(--brand-gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .guarantee-section h2 { font-size: var(--fs-h1); color: var(--white); margin-bottom: 8px; }
+  .guarantee-section h2 em { font-style: italic; color: var(--brand-gold); }
+  .guarantee-cards { display: flex; gap: 24px; justify-content: center; margin: 32px 0; }
+  .guarantee-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 32px;
+    width: 320px;
+    text-align: center;
+  }
+  .guarantee-card .days { font-size: var(--fs-display); color: var(--brand-gold); font-weight: 700; }
+  .guarantee-card .days-label { font-size: var(--fs-micro); color: var(--brand-gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .guarantee-card h4 { font-size: var(--fs-h3); color: var(--white); font-weight: 700; margin-bottom: 8px; }
+  .guarantee-card p { font-size: var(--fs-small); color: rgba(255,255,255,0.6); line-height: 1.6; }
+  .guarantee-sub { font-size: var(--fs-body); color: rgba(255,255,255,0.6); max-width: 600px; margin: 0 auto 24px; line-height: 1.6; }
+  .guarantee-badges { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .guarantee-badge-item {
+    font-size: var(--fs-micro);
+    color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .guarantee-badge-item .check { color: var(--brand-gold); }
+
+  /* ============================================
+     SECTION 21 — FAQs
+     ============================================ */
+  .faqs-section {
+    display: flex;
+    min-height: 500px;
+  }
+  .faqs-left {
+    flex: 0 0 50%;
+    background: var(--deep-maroon);
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .faqs-left h2 { font-size: var(--fs-display); color: var(--white); margin-bottom: 32px; }
+  .faq-item { border-bottom: 1px solid rgba(255,255,255,0.2); padding: 16px 0; }
+  .faq-item .question {
+    font-size: var(--fs-body);
+    color: var(--white);
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  .faq-item .plus { font-size: var(--fs-h3); color: var(--white); opacity: 0.5; }
+  .faqs-right {
+    flex: 0 0 50%;
+    background: linear-gradient(135deg, var(--light-bg), rgba(140,122,110,0.15));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fs-body);
+    color: var(--warm-gray);
+  }
+
+  /* ============================================
+     SECTION 22 — FOOTER
+     ============================================ */
+  .footer {
+    background: var(--dark-bg);
+    padding: 60px 80px 32px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr) 1.5fr;
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+  .footer-col h4 { font-size: var(--fs-small); color: var(--white); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a { font-size: var(--fs-small); color: var(--warm-gray); text-decoration: none; }
+  .footer-email h4 { font-size: var(--fs-small); color: var(--brand-gold); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .footer-email-input {
+    display: flex;
+    gap: 0;
+    margin-bottom: 8px;
+  }
+  .footer-email-input input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 30px 0 0 30px;
+    background: transparent;
+    color: var(--white);
+    font-size: var(--fs-small);
+  }
+  .footer-email-input input::placeholder { color: var(--warm-gray); }
+  .footer-email-input button {
+    background: var(--deep-maroon);
+    color: var(--white);
+    font-size: var(--fs-small);
+    font-weight: 700;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 0 30px 30px 0;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .footer-email .note { font-size: var(--fs-micro); color: var(--warm-gray); opacity: 0.6; }
+  .footer-logo {
+    text-align: center;
+    padding: 40px 0;
+    font-size: var(--fs-display);
+    color: rgba(197,151,59,0.08);
+    font-weight: 700;
+    letter-spacing: 40px;
+    line-height: 1;
+  }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-bottom .copyright { font-size: var(--fs-micro); color: var(--warm-gray); }
+  .footer-bottom a { font-size: var(--fs-micro); color: var(--warm-gray); text-decoration: none; margin-left: 16px; }
+  .footer-disclaimer { font-size: var(--fs-micro); color: var(--warm-gray); opacity: 0.5; margin-top: 16px; line-height: 1.6; }
+
+  /* ============================================
+     CRO ADDITIONS
+     ============================================ */
+
+  /* Star ratings on product cards */
+  .product-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .product-rating .stars { color: var(--brand-gold); font-size: var(--fs-small); }
+  .product-rating .count { font-size: var(--fs-micro); color: var(--warm-gray); }
+
+  /* Best Seller / Most Popular badge */
+  .product-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: var(--brand-gold);
+    color: var(--white);
+    font-size: var(--fs-micro);
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    z-index: 2;
+  }
+  .product-image { position: relative; }
+
+  /* Daily cost anchoring */
+  .daily-cost {
+    font-size: var(--fs-micro);
+    color: var(--brand-gold);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+  /* Quiz CTA between product cards */
+  .quiz-cta {
+    background: var(--white);
+    border: 2px dashed var(--brand-gold);
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    min-width: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .quiz-cta .icon { font-size: var(--fs-h1); }
+  .quiz-cta h4 { font-size: var(--fs-body); color: var(--near-black); font-weight: 600; line-height: 1.4; }
+  .quiz-cta p { font-size: var(--fs-small); color: var(--warm-gray); line-height: 1.5; }
+  .quiz-cta .btn-quiz {
+    background: var(--brand-gold);
+    color: var(--near-black);
+    font-size: var(--fs-small);
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Urgency countdown on Beckham Stack */
+  .urgency-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(197,151,59,0.1);
+    border: 1px solid rgba(197,151,59,0.3);
+    border-radius: 8px;
+    padding: 10px 16px;
+    margin-bottom: 16px;
+  }
+  .urgency-bar .icon { color: var(--brand-gold); font-size: var(--fs-body); }
+  .urgency-bar .text { font-size: var(--fs-micro); color: var(--near-black); font-weight: 600; }
+  .urgency-bar .countdown { font-size: var(--fs-small); color: var(--deep-maroon); font-weight: 700; }
+
+  /* Enhanced sticky bar */
+  .sticky-bar .cta {
+    padding: 12px 32px;
+    font-size: var(--fs-body);
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  /* Exit-intent overlay note (shown as a wireframe element) */
+  .exit-intent-note {
+    background: var(--white);
+    border: 2px solid var(--brand-gold);
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 560px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+  }
+  .exit-intent-section {
+    background: rgba(26,5,8,0.6);
+    padding: 80px;
+    text-align: center;
+  }
+  .exit-intent-section .section-label {
+    font-size: var(--fs-micro);
+    color: var(--brand-gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .exit-intent-note h3 { font-size: var(--fs-h2); color: var(--near-black); margin-bottom: 8px; }
+  .exit-intent-note p { font-size: var(--fs-body); color: var(--warm-gray); margin-bottom: 20px; line-height: 1.5; }
+  .exit-intent-note .email-row { display: flex; gap: 0; margin-bottom: 12px; }
+  .exit-intent-note input {
+    flex: 1;
+    padding: 14px 16px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px 0 0 8px;
+    font-size: var(--fs-small);
+  }
+  .exit-intent-note button {
+    background: var(--deep-maroon);
+    color: var(--white);
+    font-size: var(--fs-small);
+    font-weight: 700;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .exit-intent-note .note { font-size: var(--fs-micro); color: var(--warm-gray); }
+  .exit-intent-note .close { position: absolute; top: 12px; right: 16px; font-size: var(--fs-h3); color: var(--warm-gray); cursor: pointer; background: none; border: none; }
+</style>
+</head>
+<body>
+
+<!-- ==================== DESIGN SYSTEM REFERENCE ==================== -->
+<div class="design-system-ref">
+  <h2>Design System — Type Scale & Colors (Reference Only)</h2>
+  <div class="ds-row">
+    <div class="ds-sizes">
+      <div class="ds-size-item"><span class="label">Display — 56px</span><span style="font-size:56px;font-weight:700">Aa</span></div>
+      <div class="ds-size-item"><span class="label">H1 — 40px</span><span style="font-size:40px;font-weight:700">Aa</span></div>
+      <div class="ds-size-item"><span class="label">H2 — 28px</span><span style="font-size:28px;font-weight:700">Aa</span></div>
+      <div class="ds-size-item"><span class="label">H3 — 20px</span><span style="font-size:20px;font-weight:600">Aa</span></div>
+      <div class="ds-size-item"><span class="label">Body — 16px</span><span style="font-size:16px">Aa</span></div>
+      <div class="ds-size-item"><span class="label">Small — 14px</span><span style="font-size:14px">Aa</span></div>
+      <div class="ds-size-item"><span class="label">Micro — 11px</span><span style="font-size:11px;text-transform:uppercase;letter-spacing:1px">Aa</span></div>
+    </div>
+    <div class="ds-colors">
+      <div class="ds-color-swatches">
+        <div class="ds-swatch"><div class="ds-swatch-box" style="background:#5A000B"></div><div class="ds-swatch-name">Deep Maroon<br>#5A000B</div></div>
+        <div class="ds-swatch"><div class="ds-swatch-box" style="background:#FFFFFF"></div><div class="ds-swatch-name">White<br>#FFFFFF</div></div>
+        <div class="ds-swatch"><div class="ds-swatch-box" style="background:#C5973B"></div><div class="ds-swatch-name">Brand Gold<br>#C5973B</div></div>
+        <div class="ds-swatch"><div class="ds-swatch-box" style="background:#8C7A6E"></div><div class="ds-swatch-name">Warm Gray<br>#8C7A6E</div></div>
+        <div class="ds-swatch"><div class="ds-swatch-box" style="background:#1A0508"></div><div class="ds-swatch-name">Near Black<br>#1A0508</div></div>
+        <div class="ds-swatch"><div class="ds-swatch-box" style="background:#FDF5F0"></div><div class="ds-swatch-name">Light BG<br>#FDF5F0</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 01 ANNOUNCEMENT BAR ==================== -->
+<div class="announcement-bar">
+  <span>✦ Save 30% + Get Free Welcome Gifts</span>
+  <span class="divider">|</span>
+  <span class="secondary">Free Shipping on All Subscriptions</span>
+</div>
+
+<!-- ==================== 02 NAVIGATION ==================== -->
+<nav class="nav-bar">
+  <div class="nav-left">
+    <a href="#">Shop ▾</a>
+    <a href="#">Science</a>
+    <a href="#">The Beckham Stack</a>
+    <a href="#">Welcome from David</a>
+  </div>
+  <div class="nav-logo"><img src="https://im8health.com/cdn/shop/files/Header-Logo-New.svg" alt="IM8 Health" style="height:32px;"></div>
+  <div class="nav-right">
+    <a href="#">Reviews</a>
+    <a href="#">Ingredients</a>
+    <a href="#">Discover ▾</a>
+    <a href="#">👤</a>
+    <a href="#">🛒</a>
+  </div>
+</nav>
+
+<!-- ==================== 03 HERO ==================== -->
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-subcopy">Co-Founded by David Beckham and<br>a world-class scientific advisory team advancing the future of human health and longevity.</p>
+    <h1>One drink.<br><em>And you'll actually feel it.</em></h1>
+    <div class="hero-rating">
+      <span class="stars">★★★★★</span>
+      <span class="count"><strong>4.8</strong> · 16,255 reviews</span>
+    </div>
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary">Save 30% + Get Free Welcome Gifts →</a>
+      <a href="#" class="btn-secondary">See What's Inside →</a>
+    </div>
+    <div class="trust-badges">
+      <span class="trust-badge"><span class="check">✓</span> Up to 90-Day Money Back Guarantee</span>
+      <span class="trust-badge"><span class="check">✓</span> NSF Certified for Sport</span>
+      <span class="trust-badge"><span class="check">✓</span> Third-Party Tested</span>
+    </div>
+  </div>
+  <div class="hero-image">
+    <!-- ⚠️ DEV NOTE (CRO Audit A.1): Hero image must NOT block text render. Preload hero image,
+         use font-display:swap on all fonts, ensure headline+CTAs are server-rendered HTML (not JS-injected).
+         Hero text must be visible within 1.5s on 3G. -->
+    <div class="hero-image-placeholder"></div>
+    <div class="hero-stats">
+      <div class="hero-stat-card">
+        <div class="number">95%</div>
+        <div class="desc">reported more energy</div>
+        <div class="source">12-week clinical trial</div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="number">85%</div>
+        <div class="desc">felt better digestion</div>
+        <div class="source">Clinically validated</div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="number">100+</div>
+        <div class="desc">clinically-dosed ingredients</div>
+        <div class="source">NSF Certified for Sport</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 04 SOCIAL PROOF TICKER ==================== -->
+<div class="ticker">
+  <div class="ticker-content">
+    23M+ Servings <span class="sep">·</span>
+    "Science-backed" — Athletech News <span class="sep">·</span>
+    Featured: NBC Today · Fortune · Fast Company <span class="sep">·</span>
+    Clinically Proven in 12-Week Trial <span class="sep">·</span>
+    "Replace All Your Supplements" — Forbes <span class="sep">·</span>
+    780K+ Customer Purchases <span class="sep">·</span>
+    23M+ Servings
+  </div>
+</div>
+
+<!-- ==================== 05 STICKY PROMO BAR ==================== -->
+<div class="sticky-bar">
+  <div class="logo"><img src="https://im8health.com/cdn/shop/files/Header_White_logo.png" alt="IM8" style="height:24px;"></div>
+  <div><span class="promo">✦ Save 30% + Get Free Welcome Gifts</span> <span class="shipping">| Free Shipping on All Subscriptions</span></div>
+  <a href="#" class="cta">Save 30% Today →</a>
+</div>
+
+<!-- ==================== 06 SAVE 30% + BECKHAM STACK ==================== -->
+<div class="promo-heading">
+  <h2>Save 30% + Get Free Welcome Gifts</h2>
+</div>
+<section class="beckham-stack">
+  <!-- CRO: Urgency bar above card -->
+  <div class="urgency-bar">
+    <span class="icon">⏳</span>
+    <span class="text">Free Welcome Gifts — while supplies last</span>
+    <span class="countdown">Ends Sun midnight</span>
+  </div>
+  <div class="beckham-card">
+    <!-- Left: Product info -->
+    <div class="beckham-left">
+      <span class="beckham-badge">🏆 Best Value — David's Daily Ritual</span>
+      <h3>The Beckham Stack</h3>
+      <p class="desc">Essentials Pro + Daily Ultimate Longevity. The complete daily ritual David takes every morning. Core nutrition + cellular science in one drink.</p>
+      <div class="beckham-price">
+        <span class="amount">From $183</span><span class="period">/mo</span>
+      </div>
+      <div class="beckham-discount">
+        <span class="discount-badge">30% OFF</span>
+        <span class="discount-note">= $6.09 USD/day for total body + longevity</span>
+      </div>
+      <a href="#" class="btn-atc">Add The Beckham Stack to Cart</a>
+      <p class="free-shipping">Free shipping · Cancel anytime</p>
+      <div class="guarantee-divider"><span class="gold-dot"></span></div>
+      <div class="guarantee-line">
+        <div class="guarantee-icon">✓</div>
+        <div>
+          <div class="text">90-Day Money Back Guarantee</div>
+          <div class="note">*90-day subscribers only</div>
+        </div>
+      </div>
+    </div>
+    <!-- Right: Image + Why Stack Wins -->
+    <div class="beckham-right">
+      <div class="beckham-image-area">
+        <img src="https://im8health.com/cdn/shop/files/variety-bstack.jpg" alt="The Beckham Stack: Essentials Pro + Longevity Set">
+      </div>
+      <div class="why-stack">
+        <div class="label">Why The Stack Wins</div>
+        <ul>
+          <li><span class="check">✓</span> <strong>100+ ingredients</strong> for optimal nutrition and longevity</li>
+          <li><span class="check">✓</span> <strong>12 hallmarks of aging</strong> targeted (Longevity)</li>
+          <li><span class="check">✓</span> <strong>NMN 300mg + Spermidine</strong> for cellular renewal</li>
+          <li><span class="check">✓</span> <strong>Save more</strong> with the quarterly subscription</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 07 TWO PRODUCT CARDS + QUIZ CTA ==================== -->
+<section class="products-section">
+  <div class="product-card">
+    <div class="product-image">
+      <span class="product-badge">Most Popular</span>
+      <img src="https://im8health.com/cdn/shop/files/Firefly_Gemini-Flash_Merge-these-three-images-together-and-reposition-the-red-stick-packs-so-they-are-more-619886-_1_XL_quarterly_1.jpg" alt="Daily Ultimate Essentials Pro" style="width:100%;height:100%;object-fit:cover;">
+    </div>
+    <div class="product-info">
+      <div class="product-rating">
+        <span class="stars">★★★★★</span>
+        <span class="count">4.8 · 12,400+ reviews</span>
+      </div>
+      <h3>Daily Ultimate Essentials Pro:<br>All-in-One Supplement</h3>
+      <div class="product-tags">
+        <span class="product-tag"><span class="check">✓</span> More Energy</span>
+        <span class="product-tag"><span class="check">✓</span> Improve Digestion</span>
+        <span class="product-tag"><span class="check">✓</span> Better Sleep</span>
+        <span class="product-tag"><span class="check">✓</span> Sharper Focus</span>
+      </div>
+      <div class="product-price">
+        <span class="from">Starting from </span><span class="amount">$78</span><span class="period">/mo</span>
+      </div>
+      <div class="daily-cost">Just $2.61/day — replaces 16+ supplements</div>
+      <br>
+      <a href="#" class="btn-atc">Add to Cart</a>
+      <p class="product-guarantee">90-day guarantee (quarterly) · 30-day (monthly) · <a href="#">Get both in the Beckham Stack →</a></p>
+    </div>
+  </div>
+
+  <!-- CRO: Quiz CTA — reduces decision paralysis (Audit rec #3 / Tier 2 item #7) -->
+  <div class="quiz-cta">
+    <div class="icon">🧬</div>
+    <h4>Not sure which is right for you?</h4>
+    <p>Answer 3 quick questions and we'll recommend your perfect daily protocol.</p>
+    <a href="#" class="btn-quiz">Take The Quiz →</a>
+  </div>
+
+  <div class="product-card">
+    <div class="product-image">
+      <span class="product-badge" style="background:var(--deep-maroon);">New</span>
+      <img src="https://im8health.com/cdn/shop/files/Frame_1171275436.png" alt="Daily Ultimate Longevity" style="width:100%;height:100%;object-fit:cover;">
+    </div>
+    <div class="product-info">
+      <div class="product-rating">
+        <span class="stars">★★★★★</span>
+        <span class="count">4.7 · 3,200+ reviews</span>
+      </div>
+      <h3>Daily Ultimate Longevity:<br>Healthy Aging</h3>
+      <div class="product-tags">
+        <span class="product-tag"><span class="check">✓</span> Targets 12 Hallmarks of Aging</span>
+        <span class="product-tag"><span class="check">✓</span> Cellular Renewal</span>
+        <span class="product-tag"><span class="check">✓</span> Slows Aging</span>
+        <span class="product-tag"><span class="check">✓</span> NMN 300mg</span>
+      </div>
+      <div class="product-price">
+        <span class="from">Starting from </span><span class="amount">$104</span><span class="period">/mo</span>
+      </div>
+      <div class="daily-cost">$3.47/day — clinical-dose NMN + Spermidine</div>
+      <br>
+      <a href="#" class="btn-atc">Add to Cart</a>
+      <p class="product-guarantee">90-day guarantee (quarterly) · 30-day (monthly) · <a href="#">Get both in the Beckham Stack →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- CRO: Cross-sell prompt — drives AOV by routing single-product buyers to the Beckham Stack (Audit Tier 1 #3) -->
+<div style="background:var(--light-bg);padding:0 120px 48px;text-align:center;">
+  <div style="background:var(--white);border:2px solid var(--brand-gold);border-radius:16px;padding:28px 40px;display:inline-flex;align-items:center;gap:24px;">
+    <span style="font-size:var(--fs-h2);">🔗</span>
+    <div style="text-align:left;">
+      <div style="font-size:var(--fs-body);color:var(--near-black);font-weight:600;">Want both? Get the Beckham Stack and save even more.</div>
+      <div style="font-size:var(--fs-small);color:var(--warm-gray);margin-top:4px;">Essentials Pro + Longevity together — $6.09/day for total body + cellular science.</div>
+    </div>
+    <a href="#" style="background:var(--deep-maroon);color:var(--white);font-size:var(--fs-small);font-weight:700;padding:14px 28px;border-radius:30px;text-decoration:none;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;">Complete Your Stack →</a>
+  </div>
+</div>
+
+<!-- ⚠️ DEV NOTE (CRO Audit A.2): Sections 08–10 contained lazy-load failures on live site.
+     Ambassador photos, stats bar, and review cards loaded with multi-second delays causing blank viewport.
+     FIX: Set explicit min-height on each container. Use loading="lazy" on <img> tags.
+     Replace any embedded video with a lightweight poster thumbnail + play-on-click JS.
+     Target: all content visible within 1.5s on throttled 3G (test via Lighthouse / WebPageTest). -->
+
+<!-- ==================== 08 AMBASSADORS ==================== -->
+<section class="ambassadors">
+  <div class="overline">Global Ambassadors</div>
+  <h2>They all drink IM8.</h2>
+  <div class="ambassador-grid">
+    <div class="ambassador-card">
+      <div class="ambassador-img" style="background: linear-gradient(180deg, transparent 40%, rgba(90,0,11,0.85) 100%), url('https://im8health.com/cdn/shop/files/bstackcaro_acai09.jpg') center top/cover no-repeat;">
+        <div class="info">
+          <div class="name">David Beckham</div>
+          <div class="role">Co-Founding Partner</div>
+          <div class="tagline">Former England Captain & Global Icon</div>
+        </div>
+      </div>
+    </div>
+    <div class="ambassador-card">
+      <div class="ambassador-img" style="background: linear-gradient(180deg, transparent 40%, rgba(90,0,11,0.85) 100%), url('https://im8health.com/cdn/shop/files/BURGUNDY_SHOT_03_IM8_ARYNA_0228-min-fb-square-1200-1200.jpg') center top/cover no-repeat;">
+        <div class="info">
+          <div class="name">Aryna Sabalenka</div>
+          <div class="role">World No. 1 Tennis Player · Global Ambassador & Shareholder</div>
+          <div class="tagline">NSF Certified for Sport — WADA Compliant</div>
+        </div>
+      </div>
+    </div>
+    <div class="ambassador-card">
+      <div class="ambassador-img" style="background: linear-gradient(180deg, transparent 40%, rgba(90,0,11,0.85) 100%), url('https://im8health.com/cdn/shop/files/OB_202602_Bahrain_Sponsors_MZ5A0173.jpg') center top/cover no-repeat;">
+        <div class="info">
+          <div class="name">Ollie Bearman</div>
+          <div class="role">Formula 1 Driver · Global Ambassador & Shareholder</div>
+          <div class="tagline">Youngest Ever British F1 Driver</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 09 STATS BAR ==================== -->
+<div class="stats-bar">
+  <div class="stat-item"><span class="number">4.8</span> <span class="label">out of 5</span></div>
+  <div class="stat-item"><span class="number">16,255</span> <span class="label">verified reviews</span></div>
+  <div class="stat-item"><span class="number">780K+</span> <span class="label">customer purchases</span></div>
+</div>
+
+<!-- ==================== 10 REVIEWS ==================== -->
+<section class="reviews-section">
+  <div class="reviews-header">
+    <div class="overline">Verified Reviews</div>
+    <h2>The Clinical Trial said 95% felt more energy.<br><em>Here's what that actually feels like.</em></h2>
+    <p class="trustpilot">Customer reviews powered by <strong>★ Trustpilot</strong> — Excellent</p>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <span class="review-title">Game Changer</span>
+      <p class="review-text">"I was reluctant to order this product but I am beyond grateful that I did. Since taking IM8 my overall health has improved..."</p>
+      <div class="review-author">Marcello Rapini</div>
+      <div class="review-verified">✓ Verified on Trustpilot</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <span class="review-title">Better Than AG1</span>
+      <p class="review-text">"I was a long term AG1 ambassador — and still keep it for occasional use. The issue I found with AG1 was always the taste. IM8 really has nailed this..."</p>
+      <div class="review-author">Verified Customer</div>
+      <div class="review-verified">✓ Verified on Trustpilot</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <span class="review-title">Replaced 90% of Pills</span>
+      <p class="review-text">"The product is well-researched and thought out. The ingredients are selected and formulated for optimal dosages and absorption..."</p>
+      <div class="review-author">Dr. Taylor</div>
+      <div class="review-verified">✓ Verified on Trustpilot</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <span class="review-title">Immediate Results</span>
+      <p class="review-text">"Started on this about 10 months back, first supplement that I have tried that actually works and you see immediate change in energy levels..."</p>
+      <div class="review-author">M Javed</div>
+      <div class="review-verified">✓ Verified on Trustpilot</div>
+    </div>
+  </div>
+  <button class="show-more-btn">Show More Reviews ▾</button>
+</section>
+
+<!-- ==================== 11 INGREDIENT COMPARISON (Original vs Pro) ==================== -->
+<section class="ingredient-comparison">
+  <h2 class="section-heading">Meet the New Daily Ultimate<br>Essentials PRO.</h2>
+  <p class="section-sub">Clinical-grade nutrition. Maximum bioavailability.</p>
+  <div class="comparison-table">
+    <div class="comparison-header">
+      <span>Active Ingredient</span>
+      <span>Original</span>
+      <span class="pro">Pro Version</span>
+      <span>Your Benefit</span>
+    </div>
+    <div class="comparison-row">
+      <div class="ingredient-cell"><div class="ingredient-icon energy">⚡</div><div><div class="ingredient-name-text">Vitamin B12</div><div class="ingredient-sub-text">Methylcobalamin</div></div></div>
+      <div class="original-val">24mcg</div>
+      <div class="pro-val"><span class="dosage">200mcg</span><span class="upgrade-badge">+733%</span></div>
+      <div class="benefit-val">Cellular Energy Unlocked</div>
+    </div>
+    <div class="comparison-row">
+      <div class="ingredient-cell"><div class="ingredient-icon renewal">♻</div><div><div class="ingredient-name-text">Cell Renewal</div><div class="ingredient-sub-text">CRT8™ Complex</div></div></div>
+      <div class="original-val">25mg</div>
+      <div class="pro-val"><span class="dosage">100mg</span><span class="upgrade-badge">+300%</span></div>
+      <div class="benefit-val">Accelerated Rejuvenation</div>
+    </div>
+    <div class="comparison-row">
+      <div class="ingredient-cell"><div class="ingredient-icon heart">♡</div><div><div class="ingredient-name-text">Vitamin K2</div><div class="ingredient-sub-text">Menaquinone-7</div></div></div>
+      <div class="original-val">40mcg</div>
+      <div class="pro-val"><span class="dosage">100mcg</span><span class="upgrade-badge">+150%</span></div>
+      <div class="benefit-val">Arterial & Bone Health</div>
+    </div>
+    <div class="comparison-row">
+      <div class="ingredient-cell"><div class="ingredient-icon sun">☀</div><div><div class="ingredient-name-text">Vitamin D3</div><div class="ingredient-sub-text">VEGD3® (Lichen)</div></div></div>
+      <div class="original-val">30mcg</div>
+      <div class="pro-val"><span class="dosage">50mcg</span><span class="upgrade-badge">+67%</span></div>
+      <div class="benefit-val">Immune & Mood Support</div>
+    </div>
+    <div class="comparison-row">
+      <div class="ingredient-cell"><div class="ingredient-icon brain">🧠</div><div><div class="ingredient-name-text">Choline</div><div class="ingredient-sub-text">Bitartrate</div></div></div>
+      <div class="original-val">35mg</div>
+      <div class="pro-val"><span class="dosage">55mg</span><span class="upgrade-badge">+57%</span></div>
+      <div class="benefit-val">Focus & Memory</div>
+    </div>
+    <div class="comparison-row">
+      <div class="ingredient-cell"><div class="ingredient-icon relax">🌙</div><div><div class="ingredient-name-text">Magnesium</div><div class="ingredient-sub-text">Bisglycinate Chelate</div></div></div>
+      <div class="original-val">65mg</div>
+      <div class="pro-val"><span class="dosage">100mg</span><span class="upgrade-badge">+54%</span></div>
+      <div class="benefit-val">Relaxation & Recovery</div>
+    </div>
+    <div class="comparison-row">
+      <div class="ingredient-cell"><div class="ingredient-icon joint">💪</div><div><div class="ingredient-name-text">Joint Support</div><div class="ingredient-sub-text">MSM</div></div></div>
+      <div class="original-val">1,000mg</div>
+      <div class="pro-val"><span class="dosage">1,500mg</span><span class="upgrade-badge">+50%</span></div>
+      <div class="benefit-val">Clinical-Grade Mobility</div>
+    </div>
+    <div class="comparison-row">
+      <div class="ingredient-cell"><div class="ingredient-icon muscle">🔺</div><div><div class="ingredient-name-text">Amino Complex</div><div class="ingredient-sub-text">Muscle Recovery</div></div></div>
+      <div class="original-val">1,165mg</div>
+      <div class="pro-val"><span class="dosage">1,580mg</span><span class="upgrade-badge">+36%</span></div>
+      <div class="benefit-val">Enhanced Tissue Repair</div>
+    </div>
+    <div class="comparison-row">
+      <div class="ingredient-cell"><div class="ingredient-icon mood">✦</div><div><div class="ingredient-name-text">Mood & Focus</div><div class="ingredient-sub-text">Saffron Extract</div></div></div>
+      <div class="original-val">—</div>
+      <div class="pro-val"><span class="dosage">30mg</span><span class="upgrade-badge new">NEW</span></div>
+      <div class="benefit-val">Sharper Mental Clarity</div>
+    </div>
+    <div class="comparison-row">
+      <div class="ingredient-cell"><div class="ingredient-icon bio">⚗</div><div><div class="ingredient-name-text">Vitamin B6</div><div class="ingredient-sub-text">Pyridoxal 5-Phosphate</div></div></div>
+      <div class="original-val">HCl Form</div>
+      <div class="pro-val"><span class="dosage">P5P Form</span><span class="upgrade-badge">UPGRADE</span></div>
+      <div class="benefit-val">Bioactive Absorption</div>
+    </div>
+    <div class="comparison-row">
+      <div class="ingredient-cell"><div class="ingredient-icon bio">⚗</div><div><div class="ingredient-name-text">Riboflavin</div><div class="ingredient-sub-text">Riboflavin-5-Phosphate</div></div></div>
+      <div class="original-val">Standard</div>
+      <div class="pro-val"><span class="dosage">R5P Form</span><span class="upgrade-badge">UPGRADE</span></div>
+      <div class="benefit-val">Metabolic Efficiency</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 12 BODY SUPPORT (9 Organ Systems) ==================== -->
+<section class="body-support">
+  <span class="pill-label">Comprehensive Body Support</span>
+  <h2>One serving. Nine organ systems. <em>Every base covered.</em></h2>
+  <p class="sub">Most people patch their health together with guesswork and half-measures. One serving of Essentials Pro gives your entire body what it needs.</p>
+  <div class="organ-tabs">
+    <span class="organ-tab active">🫁 Digestive</span>
+    <span class="organ-tab">🛡 Immune</span>
+    <span class="organ-tab">❤️ Heart</span>
+    <span class="organ-tab">💪 Muscular</span>
+    <span class="organ-tab">🦴 Skeletal</span>
+    <span class="organ-tab">✨ Skin & Hair</span>
+    <span class="organ-tab">🧠 Brain</span>
+    <span class="organ-tab">⚡ Endocrine</span>
+    <span class="organ-tab">💧 Hydration</span>
+  </div>
+  <div class="organ-detail">
+    <h4>🫁 Digestive Support</h4>
+    <p>Complete 4-tier system: Prebiotics, Probiotics (10B CFU), Postbiotics (FloraSMART®), and Digestive Enzymes. 89% of trial participants experienced better digestion.</p>
+  </div>
+  <p class="organ-footnote"><strong>90 clinically-dosed ingredients</strong> across 9 organ systems in one daily serving.</p>
+</section>
+
+<!-- ==================== 13 CLINICAL PROOF ==================== -->
+<section class="clinical-proof">
+  <h2>Clinically Proven. Third-Party Tested.</h2>
+  <p class="sub">Every ingredient and dosage is third-party tested. This guarantees that you know exactly what you're putting into your body.</p>
+  <div class="nsf-trust-bar">
+    <div><div class="nsf-label">NSF Certified for Sport</div><div class="nsf-sub">280+ Substances Tested</div></div>
+    <div style="display:flex;align-items:center;gap:12px;"><img src="https://im8health.com/cdn/shop/files/media_arynasabalenka_2x_1.png" alt="Aryna Sabalenka" style="height:56px;border-radius:50%;"><div><div class="trusted">Trusted by</div><div class="name">Aryna Sabalenka</div><div style="font-size:var(--fs-micro);color:rgba(255,255,255,0.5)">World No. 1 Tennis Player</div></div></div>
+  </div>
+  <br>
+  <a href="#" class="btn-outline-light">View Third Party Results</a>
+  <div class="clinical-stats">
+    <div class="clinical-stat-card">
+      <h3>More Energy</h3>
+      <div class="number">95%</div>
+      <div class="desc">Of participants felt a noticeable boost in daily energy</div>
+    </div>
+    <div class="clinical-stat-card">
+      <h3>A Healthier Gut</h3>
+      <div class="number">85%</div>
+      <div class="desc">Of participants experienced better digestion and less bloating</div>
+    </div>
+    <div class="clinical-stat-card">
+      <h3>Sleep Better</h3>
+      <div class="number">80%</div>
+      <div class="desc">Participants reported getting better sleep</div>
+    </div>
+    <div class="clinical-stat-card">
+      <h3>Perform Sharper</h3>
+      <div class="number">75%</div>
+      <div class="desc">Of participants noticed sharper focus and improved mental clarity</div>
+    </div>
+  </div>
+  <p class="clinical-footnote">Results based on a 12-Week Randomized, Controlled, Clinical Trial conducted by the <a href="#">San Francisco Research Institute</a>.</p>
+</section>
+
+<!-- ==================== 14 NSF DETAIL BADGES ==================== -->
+<div class="nsf-badges-section">
+  <div class="nsf-badges">
+    <img src="https://im8health.com/cdn/shop/files/NSF_Contents.svg" alt="NSF Contents Certified" style="height:48px;">
+    <img src="https://im8health.com/cdn/shop/files/NSF_Sport.svg" alt="NSF Certified for Sport" style="height:48px;">
+    <span class="nsf-badge-item"><span class="dot"></span> WADA Compliant</span>
+    <span class="nsf-badge-item"><span class="dot"></span> 280+ Substances Tested</span>
+    <span class="nsf-badge-item"><span class="dot"></span> Heavy Metal Free</span>
+    <span class="nsf-badge-item"><span class="dot"></span> GMP Certified</span>
+  </div>
+</div>
+
+<!-- ==================== 15 SCIENTIFIC ADVISORY BOARD ==================== -->
+<section class="advisory-board">
+  <span class="pill-label">Backed by World-Class Scientific Expertise</span>
+  <h2>Meet the Experts Behind<br><em>IM8's Revolutionary Formula</em></h2>
+  <p class="sub">Our Scientific Advisory Board unites leading minds from Mayo Clinic, NASA, Cedars-Sinai, and Yale — each collaborating to develop a formula at the cutting edge of nutritional science.</p>
+  <div class="advisor-grid">
+    <div class="advisor-card"><div class="advisor-photo"><img src="https://im8health.com/cdn/shop/files/Frame_1000004731.png" alt="Prof. Suzanne Devkota" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"></div><div class="advisor-info"><h4>Prof. Suzanne Devkota</h4><div class="role">Director of Cedars-Sinai Human Microbiome Research Institute</div><a href="#" class="view-bio">View Bio →</a></div></div>
+    <div class="advisor-card"><div class="advisor-photo"><img src="https://im8health.com/cdn/shop/files/Frame_1000004729.png" alt="Dr. James L. Green" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"></div><div class="advisor-info"><h4>Dr. James L. Green</h4><div class="role">Former Chief Scientist of NASA</div><a href="#" class="view-bio">View Bio →</a></div></div>
+    <div class="advisor-card"><div class="advisor-photo"><img src="https://im8health.com/cdn/shop/files/sab_Dawn_grid.jpg" alt="Dr. Dawn Mussallem" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"></div><div class="advisor-info"><h4>Dr. Dawn Mussallem</h4><div class="role">CMO of Fountain Life & Founder of Mayo Clinic Integrative Breast Oncology Program</div><a href="#" class="view-bio">View Bio →</a></div></div>
+    <div class="advisor-card"><div class="advisor-photo"><img src="https://im8health.com/cdn/shop/files/Dr._James_D.png" alt="Dr. James DiNicolantonio" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"></div><div class="advisor-info"><h4>Dr. James DiNicolantonio</h4><div class="role">Cardiovascular Research Scientist and Doctor of Pharmacy</div><a href="#" class="view-bio">View Bio →</a></div></div>
+    <div class="advisor-card"><div class="advisor-photo"><img src="https://im8health.com/cdn/shop/files/sab_Shah_headshot.jpg" alt="Dr. Amy Shah" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"></div><div class="advisor-info"><h4>Dr. Amy Shah</h4><div class="role">Double-Board Certified Physician & Host of Podcast "Save Yourself"</div><a href="#" class="view-bio">View Bio →</a></div></div>
+    <div class="advisor-card"><div class="advisor-photo"><img src="https://im8health.com/cdn/shop/files/sab_Suppiah_headshot.jpg" alt="Dr. Ara Suppiah" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"></div><div class="advisor-info"><h4>Dr. Ara Suppiah</h4><div class="role">Performance Strategist, Sports Physician, Creator of Functional Sports Medicine</div><a href="#" class="view-bio">View Bio →</a></div></div>
+    <div class="advisor-card"><div class="advisor-photo"><img src="https://im8health.com/cdn/shop/files/sab_DarshanShah_headshot.jpg" alt="Dr. Darshan Shah" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"></div><div class="advisor-info"><h4>Dr. Darshan Shah</h4><div class="role">Board Certified Surgeon & Physician, CEO and Founder of Next Health</div><a href="#" class="view-bio">View Bio →</a></div></div>
+    <div class="advisor-card"><div class="advisor-photo"><img src="https://im8health.com/cdn/shop/files/sab_Simon_headshot.jpg" alt="Simon Hill" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"></div><div class="advisor-info"><h4>Simon Hill</h4><div class="role">MSc, BSc, Nutritionist, Physiologist, Author and Podcast Host</div><a href="#" class="view-bio">View Bio →</a></div></div>
+  </div>
+</section>
+
+<!-- ==================== 16 ADVISOR QUOTE ==================== -->
+<div class="advisor-quote">
+  <div class="quote-mark">"</div>
+  <blockquote>"The PRO formulation isn't just an update; it's an evolution. By upgrading to bioactive forms like P5P and significantly increasing key dosages like B12 and Vitamin D, we are delivering a level of cellular support that is rarely seen in a single product. This is clinical-grade nutrition, optimized for real-world performance."</blockquote>
+</div>
+
+<!-- ==================== 17 A NOTE FROM DAVID BECKHAM ==================== -->
+<section class="beckham-note">
+  <div class="beckham-note-content">
+    <h2>A Note from<br>David Beckham</h2>
+    <p>I've been fortunate to work with some of the world's top medical professionals, nutrition experts, and fitness coaches throughout my life. Their guidance has always been crucial to my health. Since retiring from football, I've focused even more on eating well and staying informed about the latest science in health and supplements.</p>
+    <p>Supplements have been a part of my daily routine for years, but I've often felt overwhelmed by how many different products it takes to truly support your body. That's why IM8 is so different — it's simplified everything for me.</p>
+    <p>Since taking IM8 daily, I've felt better — more energy, better focus, and just a stronger sense of overall wellness. And one of the best parts? It tastes amazing — like a refreshing blend of acai and mixed berries.</p>
+    <p>We've built a world-class scientific advisory board with leaders in medicine, nutrition, and even space science. Every ingredient in IM8 is selected with intention and backed by rigorous research.</p>
+    <div class="signature">David Beckham</div>
+    <div class="sig-role">Co-Founding Partner</div>
+  </div>
+  <!-- ⚠️ DEV NOTE (CRO Audit A.2): This video/image section was one of the blank-space offenders.
+       Set explicit height (min-height: 600px). If video, use poster frame + play-on-click. -->
+  <div class="beckham-note-image"><img src="https://im8health.com/cdn/shop/files/DB.jpg" alt="David Beckham" style="width:100%;height:100%;object-fit:cover;border-radius:16px;"></div>
+</section>
+
+<!-- ==================== 18 CLINICAL COMPARISON (vs Leading Greens) ==================== -->
+<section class="vs-comparison">
+  <span class="pill-label">Clinical Comparison</span>
+  <h2><em>The New Gold Standard</em></h2>
+  <p class="sub">See how IM8 compares on clinical dosing, ingredient transparency, and overall formulation.</p>
+  <div class="vs-table">
+    <div class="vs-table-header">
+      <div class="vs-label">Ingredient</div>
+      <div class="vs-product"><img src="https://im8health.com/cdn/shop/files/sachet-thumb.png" alt="IM8" style="height:56px;"><div class="name">IM8 Daily Essentials Pro</div></div>
+      <div class="vs-product"><img src="https://im8health.com/cdn/shop/files/accelerated_btn_greens.webp" alt="Competitor" style="height:56px;"><div class="name">Leading Greens Powder</div></div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-ingredient">Vitamin K2</div>
+      <div class="vs-im8-cell"><span class="vs-check-im8">✓</span><div class="vs-im8-data"><span class="pct">+11%</span><span class="pct-label">More</span><span class="dose">100mcg Clinical Dose</span></div></div>
+      <div class="vs-competitor-cell"><span class="vs-check-comp">✓</span><span class="vs-comp-dose">90mcg</span></div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-ingredient">CoQ10</div>
+      <div class="vs-im8-cell"><span class="vs-check-im8">✓</span><div class="vs-im8-data"><span class="pct">+67%</span><span class="pct-label">More</span><span class="dose">100mg Clinical Dose</span></div></div>
+      <div class="vs-competitor-cell"><span class="vs-check-comp">✓</span><span class="vs-comp-dose">60mg</span></div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-ingredient">Vitamin C</div>
+      <div class="vs-im8-cell"><span class="vs-check-im8">✓</span><div class="vs-im8-data"><span class="pct">+80%</span><span class="pct-label">More</span><span class="dose">900mg Clinical Dose</span></div></div>
+      <div class="vs-competitor-cell"><span class="vs-check-comp">✓</span><span class="vs-comp-dose">500mg</span></div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-ingredient">Prebiotic Fiber</div>
+      <div class="vs-im8-cell"><span class="vs-check-im8">✓</span><div class="vs-im8-data"><span class="pct">+50%</span><span class="pct-label">More</span><span class="dose">3g</span></div></div>
+      <div class="vs-competitor-cell"><span class="vs-check-comp">✓</span><span class="vs-comp-dose">2g</span></div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-ingredient">Riboflavin</div>
+      <div class="vs-im8-cell"><span class="vs-check-im8">✓</span><div class="vs-im8-data"><span class="pct">+110%</span><span class="pct-label">More</span><span class="dose">4.2mg Clinical Dose</span></div></div>
+      <div class="vs-competitor-cell"><span class="vs-check-comp">✓</span><span class="vs-comp-dose">2mg</span></div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-ingredient">Magnesium</div>
+      <div class="vs-im8-cell"><span class="vs-check-im8">✓</span><div class="vs-im8-data"><span class="pct">+233%</span><span class="pct-label">More</span><span class="dose">100mg</span></div></div>
+      <div class="vs-competitor-cell"><span class="vs-check-comp">✓</span><span class="vs-comp-dose">30mg</span></div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-ingredient">Selenium</div>
+      <div class="vs-im8-cell"><span class="vs-check-im8">✓</span><div class="vs-im8-data"><span class="pct">+218%</span><span class="pct-label">More</span><span class="dose">70mcg Clinical Dose</span></div></div>
+      <div class="vs-competitor-cell"><span class="vs-check-comp">✓</span><span class="vs-comp-dose">22mcg</span></div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-ingredient">Chromium</div>
+      <div class="vs-im8-cell"><span class="vs-check-im8">✓</span><div class="vs-im8-data"><span class="pct">+300%</span><span class="pct-label">More</span><span class="dose">100mcg Clinical Dose</span></div></div>
+      <div class="vs-competitor-cell"><span class="vs-check-comp">✓</span><span class="vs-comp-dose">25mcg</span></div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-ingredient">Copper</div>
+      <div class="vs-im8-cell"><span class="vs-check-im8">✓</span><div class="vs-im8-data"><span class="pct">+400%</span><span class="pct-label">More</span><span class="dose">1mg Clinical Dose</span></div></div>
+      <div class="vs-competitor-cell"><span class="vs-check-comp">✓</span><span class="vs-comp-dose">0.2mg</span></div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-ingredient">Manganese</div>
+      <div class="vs-im8-cell"><span class="vs-check-im8">✓</span><div class="vs-im8-data"><span class="pct">+650%</span><span class="pct-label">More</span><span class="dose">3mg Clinical Dose</span></div></div>
+      <div class="vs-competitor-cell"><span class="vs-check-comp">✓</span><span class="vs-comp-dose">400mcg</span></div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-ingredient">Molybdenum</div>
+      <div class="vs-im8-cell"><span class="vs-check-im8">✓</span><div class="vs-im8-data"><span class="pct">+11%</span><span class="pct-label">More</span><span class="dose">50mcg Clinical Dose</span></div></div>
+      <div class="vs-competitor-cell"><span class="vs-check-comp">✓</span><span class="vs-comp-dose">45mcg</span></div>
+    </div>
+  </div>
+  <br>
+  <a href="#" style="font-size:var(--fs-small);color:var(--near-black);border:1.5px solid var(--warm-gray);padding:12px 28px;border-radius:30px;text-decoration:none;text-transform:uppercase;letter-spacing:1px;display:inline-block;">See all 24 ingredients →</a>
+  <p class="vs-footnote"><strong>Clinically dosed ingredients</strong> in every serving — no proprietary blends, no hidden dosages.</p>
+</section>
+
+<!-- ==================== 19 TRUSTED BY THE BEST ==================== -->
+<section class="trusted-section">
+  <span class="pill-label">Trusted by The Best</span>
+  <h2>Athletes, Physicians, Dietitians, Biohackers<br>— and <em>780K+ Customer Purchases.</em></h2>
+  <p class="sub">780K+ Customer Purchases, 23M+ Servings Worldwide</p>
+  <div class="influencer-grid">
+    <div class="influencer-card"><div class="influencer-img"><div><div class="name">Tim Biohacker</div><div class="role">UK's Leading Bio-hacker</div></div></div></div>
+    <div class="influencer-card"><div class="influencer-img"><div><div class="name">Dr. Amy Shah</div><div class="role">Double-Board Certified Physician & Podcast Host</div></div></div></div>
+    <div class="influencer-card"><div class="influencer-img"><div><div class="name">Tavi Castro</div><div class="role">Professional Freediver & Fitness Entrepreneur</div></div></div></div>
+    <div class="influencer-card"><div class="influencer-img"><div><div class="name">Dustin Poirier</div><div class="role">Professional MMA Fighter</div></div></div></div>
+  </div>
+  <div class="trusted-stats">
+    <div class="trusted-stat"><div class="number">780K+</div><div class="label">Customer Purchases</div></div>
+    <div class="trusted-stat"><div class="number">23M+</div><div class="label">Servings Worldwide</div></div>
+    <div class="trusted-stat"><div class="number">4.8/5</div><div class="label">Average Rating</div></div>
+  </div>
+</section>
+
+<!-- ==================== 20 RISK-FREE GUARANTEE ==================== -->
+<section class="guarantee-section">
+  <div class="guarantee-icon-big">✓</div>
+  <div class="overline">Our Promise</div>
+  <h2>Risk-Free <em>Guarantee</em></h2>
+  <div class="guarantee-cards">
+    <div class="guarantee-card">
+      <div class="days">90</div>
+      <div class="days-label">Day Guarantee</div>
+      <h4>Quarterly Plan</h4>
+      <p>Three full months to experience the difference. If you don't feel it — complete refund, no questions.</p>
+    </div>
+    <div class="guarantee-card">
+      <div class="days">30</div>
+      <div class="days-label">Day Guarantee</div>
+      <h4>Monthly Plan</h4>
+      <p>A full month to feel the energy, the clarity, and the difference. Not convinced? Full refund.</p>
+    </div>
+  </div>
+  <p class="guarantee-sub">Over 780K customers. 4.8/5 average rating. We're confident enough to bet on your experience — because 87% of clinical trial participants felt a noticeable difference.</p>
+  <div class="guarantee-badges">
+    <span class="guarantee-badge-item"><span class="check">✓</span> 90-day guarantee (quarterly)</span>
+    <span class="guarantee-badge-item"><span class="check">✓</span> 30-day guarantee (monthly)</span>
+    <span class="guarantee-badge-item"><span class="check">✓</span> Free shipping</span>
+    <span class="guarantee-badge-item"><span class="check">✓</span> Cancel anytime</span>
+    <span class="guarantee-badge-item"><span class="check">✓</span> NSF Certified</span>
+  </div>
+</section>
+
+<!-- ==================== 21 FAQs ==================== -->
+<section class="faqs-section">
+  <div class="faqs-left">
+    <h2>FAQs</h2>
+    <div class="faq-item"><div class="question">What is Daily Ultimate Essentials Pro? <span class="plus">+</span></div></div>
+    <div class="faq-item"><div class="question">Is IM8 third-party tested? <span class="plus">+</span></div></div>
+    <div class="faq-item"><div class="question">How does it taste? <span class="plus">+</span></div></div>
+    <div class="faq-item"><div class="question">What's the difference between Original and Pro? <span class="plus">+</span></div></div>
+    <div class="faq-item"><div class="question">Can I cancel my subscription? <span class="plus">+</span></div></div>
+    <div class="faq-item"><div class="question">How does the money-back guarantee work? <span class="plus">+</span></div></div>
+  </div>
+  <div class="faqs-right"><img src="https://im8health.com/cdn/shop/files/faq-banner.jpg" alt="IM8 Products" style="width:100%;height:100%;object-fit:cover;border-radius:16px;"></div>
+</section>
+
+<!-- ==================== CRO: CART DRAWER WIREFRAME ==================== -->
+<!-- This section shows the slide-out cart drawer with upsell, trust signals, and monthly-framed CTA (Audit Tier 1 #3, #4, #5) -->
+<div class="exit-intent-section" style="margin-bottom:40px;">
+  <div class="section-label">CRO Addition: Cart Drawer (slides out from right on ATC click)</div>
+  <div style="background:var(--white);border-radius:16px;padding:32px 28px;max-width:420px;margin:0 auto;box-shadow:0 4px 40px rgba(0,0,0,0.12);position:relative;">
+    <button style="position:absolute;top:12px;right:16px;font-size:var(--fs-h3);color:var(--warm-gray);background:none;border:none;cursor:pointer;">✕</button>
+    <div style="font-size:var(--fs-h3);font-weight:700;color:var(--near-black);margin-bottom:20px;">Your Cart</div>
+
+    <!-- Line item -->
+    <div style="display:flex;gap:16px;padding-bottom:16px;border-bottom:1px solid rgba(0,0,0,0.06);">
+      <div style="width:72px;height:72px;background:var(--light-bg);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:var(--fs-micro);color:var(--warm-gray);">[ img ]</div>
+      <div style="flex:1;">
+        <div style="font-size:var(--fs-small);font-weight:600;color:var(--near-black);">Daily Ultimate Essentials Pro</div>
+        <div style="font-size:var(--fs-micro);color:var(--warm-gray);margin-top:2px;">Variety Pack · Every 12 Weeks · Qty: 1</div>
+        <div style="font-size:var(--fs-small);font-weight:700;color:var(--near-black);margin-top:4px;">$235.00 <span style="font-size:var(--fs-micro);color:var(--warm-gray);font-weight:400;">($78.33/mo)</span></div>
+      </div>
+    </div>
+
+    <!-- 12-week timeline -->
+    <div style="background:var(--light-bg);border-radius:8px;padding:12px 16px;margin-top:16px;text-align:center;">
+      <div style="font-size:var(--fs-micro);color:var(--near-black);font-weight:600;text-transform:uppercase;letter-spacing:1px;">IM8 Works Best After 12 Weeks of Daily Use</div>
+      <div style="font-size:var(--fs-micro);color:var(--warm-gray);margin-top:4px;">[ Week 1 → Week 4 → Week 8 → Week 12 timeline graphic ]</div>
+    </div>
+
+    <!-- CRO: Cross-sell upsell (Tier 1 #3) -->
+    <div style="border:1px solid var(--brand-gold);border-radius:10px;padding:14px;margin-top:16px;">
+      <div style="font-size:var(--fs-micro);color:var(--brand-gold);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Complete Your Stack</div>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <div style="width:48px;height:48px;background:var(--light-bg);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:var(--fs-micro);color:var(--warm-gray);">[ img ]</div>
+        <div style="flex:1;">
+          <div style="font-size:var(--fs-small);font-weight:600;color:var(--near-black);">Add Daily Ultimate Longevity</div>
+          <div style="font-size:var(--fs-micro);color:var(--warm-gray);">+$104/mo · Targets 12 Hallmarks of Aging</div>
+        </div>
+        <a href="#" style="background:var(--deep-maroon);color:var(--white);font-size:var(--fs-micro);font-weight:700;padding:8px 14px;border-radius:6px;text-decoration:none;text-transform:uppercase;">Add</a>
+      </div>
+    </div>
+
+    <!-- Free shipping bar -->
+    <div style="background:rgba(197,151,59,0.1);border-radius:6px;padding:8px;text-align:center;margin-top:16px;">
+      <div style="font-size:var(--fs-micro);color:var(--brand-gold);font-weight:600;">✓ You've unlocked free shipping</div>
+    </div>
+
+    <!-- CRO: Trust signals (Tier 1 #4) -->
+    <div style="display:flex;justify-content:center;gap:16px;margin-top:14px;">
+      <span style="font-size:var(--fs-micro);color:var(--warm-gray);">Visa</span>
+      <span style="font-size:var(--fs-micro);color:var(--warm-gray);">Mastercard</span>
+      <span style="font-size:var(--fs-micro);color:var(--warm-gray);">PayPal</span>
+      <span style="font-size:var(--fs-micro);color:var(--warm-gray);">Apple Pay</span>
+      <span style="font-size:var(--fs-micro);color:var(--warm-gray);">Shop Pay</span>
+    </div>
+    <div style="text-align:center;margin-top:8px;">
+      <span style="font-size:var(--fs-micro);color:var(--brand-gold);font-weight:600;">✓ 90-Day Money-Back Guarantee</span>
+    </div>
+
+    <!-- CRO: Monthly-framed checkout CTA (Tier 1 #5) -->
+    <a href="#" style="display:block;background:var(--deep-maroon);color:var(--white);font-size:var(--fs-small);font-weight:700;padding:18px;border-radius:40px;text-align:center;text-decoration:none;text-transform:uppercase;letter-spacing:1.5px;margin-top:16px;">Start Your 90-Day Program — $78.33/mo</a>
+    <div style="text-align:center;margin-top:6px;font-size:var(--fs-micro);color:var(--warm-gray);">Billed $235.00 every 12 weeks · Cancel anytime</div>
+
+    <!-- Urgency (Tier 3 #12) -->
+    <div style="text-align:center;margin-top:12px;font-size:var(--fs-micro);color:var(--deep-maroon);font-weight:600;">Your 30% discount + Free Welcome Gifts reserved for 14:59</div>
+  </div>
+</div>
+
+<!-- ==================== CRO: EXIT-INTENT POPUP WIREFRAME ==================== -->
+<!-- This section shows what the exit-intent overlay would look like — triggered when cursor moves to close tab -->
+<div class="exit-intent-section">
+  <div class="section-label">CRO Addition: Exit-Intent Popup (triggers on tab close)</div>
+  <div class="exit-intent-note">
+    <button class="close">✕</button>
+    <h3>Wait — your 15% off is waiting</h3>
+    <p>First-time visitors get an exclusive discount. Enter your email and we'll send your code instantly.</p>
+    <div class="email-row">
+      <input type="email" placeholder="Your email address">
+      <button>Get 15% Off</button>
+    </div>
+    <div class="note">No spam. Unsubscribe anytime. Join 780K+ customers.</div>
+  </div>
+</div>
+
+<!-- ==================== 22 FOOTER ==================== -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">Premium Core Nutrition</a></li>
+        <li><a href="#">The Beckham Stack</a></li>
+        <li><a href="#">Merchandise</a></li>
+        <li><a href="#">Shop All</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Science</a></li>
+        <li><a href="#">Impact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <ul>
+        <li><a href="#">Reviews</a></li>
+        <li><a href="#">Ingredients</a></li>
+        <li><a href="#">Quality and Standards</a></li>
+        <li><a href="#">IM8 Affiliate Program</a></li>
+        <li><a href="#">IM8 vs AG1 Next Gen</a></li>
+        <li><a href="#">IM8 vs Live it Up Super Greens</a></li>
+        <li><a href="#">IM8 vs Bloom Greens & Superfoods</a></li>
+        <li><a href="#">IM8 vs Huel Daily Greens</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="#">Track My Order</a></li>
+        <li><a href="#">Returns / Exchanges</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>IM8 Community</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">YouTube</a></li>
+        <li><a href="#">Pinterest</a></li>
+        <li><a href="#">Refer a Friend</a></li>
+      </ul>
+    </div>
+    <div class="footer-email">
+      <h4>Join the community for exclusive wellness insights</h4>
+      <div class="footer-email-input">
+        <input type="email" placeholder="Email Address">
+        <button>Join Now</button>
+      </div>
+      <p class="note">*By joining, you'll receive our wellness insights and can unsubscribe anytime.</p>
+    </div>
+  </div>
+  <div class="footer-logo"><img src="https://im8health.com/cdn/shop/files/Header_White_logo.png" alt="IM8 Health" style="height:40px;opacity:0.4;"></div>
+  <div class="footer-bottom">
+    <span class="copyright">© 2026 IM8®</span>
+    <div><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+  </div>
+  <p class="footer-disclaimer">*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. **Free Welcome Kit available for new subscribers only.</p>
+</footer>
+
+</body>
+</html>
